@@ -132,7 +132,13 @@ Así esos cambios sí se guardan.
 - git switch -c login (crear e irse)
 
 💬️ Git merge
-- git merge main (nos trae los datos del main a login)
+- git merge login (nos trae los datos del login a main, sirve cuando una tarea esta terminada)
+- git rebase main (Mueve toda tu rama login para que empiece justo donde termina el último commit de main)
+- git merge --squash login
+
+	1. Git toma todo el trabajo de los 20 commits de login.
+	2. Lo comprime en uno solo
+	3. Te deja listo para que hagas un único commit en main con un nombre limpio como: "feat: sistema de login completo".
 
 💬️ Conflictos en git
 *login
@@ -467,11 +473,8 @@ Imagina que mientras tú trabajabas en tu rama login, alguien más (o tú mismo 
 - git rebase -i (Interactivo): Es el "Modo Dios". Te abre una lista de tus últimos commits y te permite:
 
         Fusionar dos commits en uno solo (Squash).
-
         Cambiar el nombre de un mensaje de commit viejo.
-
         Eliminar un commit que ya no quieres.
-
         Se usa así: git rebase -i HEAD~3 (para editar los últimos 3 commits).
 
 ¿Qué hacer si algo sale mal durante el rebase?
@@ -501,6 +504,74 @@ Cherry-pick	Solo quieres UN commit específico.	Copia un cambio puntual de un si
 Un consejo: 
 
 El rebase es una herramienta potente pero peligrosa. Regla de oro: Nunca hagas rebase de una rama que ya subiste a GitHub y que otros están usando, porque les cambiarás el historial y causarás un caos. Úsalo solo para limpiar tus ramas locales antes de hacer el push final.
+
+# ejemplo:
+
+1. Git Rebase (El Actualizador)
+
+El Escenario: Estás en tu laptop en la rama desarrollo-sockets. Mientras programabas, en GitHub alguien (o tú mismo desde la otra laptop) subió cambios a main. Tu rama se quedó "atrás".
+Ejemplo de git rebase main:
+
+    Estás en tu rama: git checkout desarrollo-sockets
+
+    Te traes lo nuevo: git fetch bon
+
+    Ejecutas el rebase: git rebase bon/main
+
+    ¿Qué pasó? Git quitó tus commits un momento, puso los nuevos de main y luego volvió a poner los tuyos al final. Ahora tu historia es una línea recta perfecta.
+
+Ejemplo de git rebase -i HEAD~3 (El Limpiador):
+
+Tienes estos commits feos:
+
+    work: avance 1
+
+    work: avance 2
+
+    fix: error de dedo
+
+Quieres que se vea como uno solo profesional.
+
+    Escribes: git rebase -i HEAD~3
+
+    Se abre un editor de texto. Verás la palabra pick al lado de cada commit.
+
+    Cambias pick por squash (o solo s) en los dos últimos.
+
+    Guardas y cierras.
+
+    Resultado: Git fusiona los 3 en uno solo. Ahora puedes ponerle un nombre épico: feat: sistema de sockets terminado.
+
+2. Git Cherry-pick (El Ladrón de Código)
+
+El Escenario: Tienes una rama llamada pruebas-locas donde hiciste experimentos. El 90% es basura que no sirve, pero hay un commit específico donde arreglaste un error crítico del login.cpp. El ID de ese commit es a1b2c3d.
+Ejemplo de git cherry-pick a1b2c3d:
+
+    Te vas a tu rama principal: git checkout main
+
+    "Robas" solo ese cambio: git cherry-pick a1b2c3d
+
+    Resultado: Solo el arreglo del login aparece en main. Los otros experimentos basura se quedan en la otra rama. ¡Eficiencia pura!
+
+3. ¿Qué hacer cuando sale mal? (Los Salvavidas)
+
+A veces, al hacer rebase o cherry-pick, Git se detiene porque hay un Conflicto (la misma línea de código fue cambiada en dos sitios).
+Ejemplo de abort vs continue:
+
+    Escenario A (Pánico): Ves que hay 50 archivos con conflictos y no tienes tiempo.
+
+        Comando: git rebase --abort (o git cherry-pick --abort)
+
+        Efecto: El tiempo regresa atrás. Es como si nunca hubieras ejecutado el comando. Todo vuelve a la normalidad.
+
+    Escenario B (Solución): Abres el archivo, ves las marcas <<<< HEAD, borras lo que no sirve y dejas el código limpio.
+
+        git add archivo_arreglado.cpp
+
+        git rebase --continue (o git cherry-pick --continue)
+
+        Efecto: Git dice "¡Gracias!" y sigue con el siguiente commit.
+
 
 
 💬️ GitHub pages y actions
