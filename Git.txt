@@ -1,0 +1,504 @@
+• https://git-scm.com/
+• https://git-scm.com/book/en/v2
+• https://git-scm.com/download/gui/windows
+
+Git es un sistema de control de versiones distribuido.
+
+💬️ Que es no distribuido?
+que todo dependia de único sitio, si ese sitio se borraba el código se veia afectado. 
+
+💬️ Que es distribuido?
+que cada programador puede tener una copia del código, si que se afecte el código.
+
+💬️ Sistema de control de versiones?
+Llevar un historial de todos los cambios que haya en nuestro proyecto o documentar los cambios.
+
+💬️ Historia de GIT
+aparecio el 7 abril de 2005, creado por Linus Torvals el mismo creador del kernel de Linux :o.
+
+💬️ Instalación de GIT
+- "Download for Windows" (click)
+- darle el siguiente siguiente...
+
+💬️ Comandos basicos
+- git (para ver si tenemos git)
+- git --version (version de git que tenemos instalada)
+- git -v (version de git que tenemos instalada)
+- git --help
+- git -h
+
+- code . (abrimos esa carpeta en visual studio code)
+
+💬️ Configuración de GIT
+- git config --global user.name "donueeasy" (crear un usuario)
+- git config --global user.email "donuteasy03@gmail.com" (crear email)
+- C:\Users\USUARIO\.gitconfig (donde esta las configuraciones de git)
+
+💬️ git init
+- git init (iniciamos git)
+
+💬️ Ramas en GIT
+- git branch -m main (movernos a la rama main)
+- git config --global init.defaultBranch main (para cambiar la rama por defecto)
+
+💬️ Git add y commit
+- git status (estado del proyecto) 
+- git add hellogit.py (añadirlo al staging area)
+- git commit -m "primer commit" (hacer un snapshot)
+
+"Cada vez que hacemos un snapshot, a este se le agrega un hash, un identificador único"
+
+💬️ Git log y Status
+- git log (historial de commit)
+- git status (estado del proyecto)
+
+💬️ Git checkout y reset 
+"checkout es como para situarnos en un punto concreto de un snapshot"
+
+- git checkout -- hellogit2.py (volvemos al código que teniamos en la última snapshot)
+- git chekcout hellogit2.py
+- git restore archivo.cpp (mas actualizado)
+- git restore --staged (mas actualizado, si ya hiciste add .)
+- git restore --staged --worktree file.cpp (borra lo fisico y vuelve al ultimo commit)
+
+- git reset (si hay algo que podamos volver git log o deshacer código de un archivo)
+- git log --graph (grafico)
+- git log --graph --pretty=oneline (para ver los commit en una linea de forma grafica)
+- git log --graph --decorate --all --oneline (grafico decorado todo en una sola linea)
+
+💬️ Git alias
+"Dentro de la configuracion podemos crear alias"
+
+- git config --global alias.tree "log --graph --decorate --all --oneline" (un alias para ese comando)
+- git tree
+
+💬️ Git ignore
+- touch .gitignore (dentro de este archivo estara todos los archivos que queramos ignorar de nuestro proyecto)
+
+====== .gitignore =====
+**/test (los dos asteriscos significa que nos da igual donde se encuentre este archivo)
+**/*.mp4
+=======================
+
+💬️ Git diff
+- git diff (nos muestra cambios que hicimos con respecto al último snapshot)
+- git diff --cached (si ya hiciste add .)
+- git diff main login (comparar dos ramas)
+- git diff archivo.cpp (un archivo especifico)
+
+Si quieres...				          Comando
+Sacar un solo archivo de Staging	git restore --staged archivo.cpp
+Sacar TODOS los archivos de Staging	git restore --staged .
+Sacar un archivo y borrar también los cambios físicos	git restore --staged --worktree archivo.cpp (¡Cuidado!)
+
+💬️ Desplazamiento
+- git checkout 17329526e7fe64d18ba86d4ec85bba1f4bfc41d7 (nos manda al commit por su hash)
+- git checkout HEAD (le indicamos que nos queremos situar AQUI porque lo que hice puff me equivoque)+
+- git checkout a2483ba (nos movemos a la main)
+
+Tip de Pro: Si estás en un snapshot viejo, haces cambios y te das cuenta de que son geniales, ¡no vuelvas a master todavía! Crea una rama ahí mismo: 
+
+- git checkout -b nueva-idea
+
+Así esos cambios sí se guardan.
+
+💬️ Git reset hard y reflog
+- git reset --soft HEAD~1 (para cmabiar commit)
+- git reset --mixed HEAD~1 (para hacer commits separados, por archivos)
+- git reset --hard HEAD~1 (volvemos a un coomit anterior, borrando todo)
+- git reset --hard HEAD (volvemos al presente, no volvemos atras)
+- git reflog (historial completo de interacciones que hemos hecho en nuestro git)
+- git reset --hard a2483ba (para volver al final de mi proyecto)
+
+💬️ Git tag
+"Tag = etiqueta, para representar por ejemplo tenemos un tag que hace referencia al primer commit"
+- git tag clase_1 (añadir una etiqueta)
+
+============================================================
+* 0ab3462 (HEAD -> main) cree hellogit3.py
+* a2483ba (tag: clase_1) cree el .gitignore
+* e5c7630 corregi el nombre de hellowgit2.py a hellogit2.py
+* b71fda6 este es mi segundo commit
+* 1732952 primer commit
+============================================================
+
+- git tag (lista de tag)
+- git checkout tags/clase_1 (navegar por tags)
+- git tag -d nombre_del_tag (eliminar tags)
+
+💬️ Git branch y switch
+- git branch login (crear una rama)
+- git switch login (cambiar de rama)
+- git switch -c login (crear e irse)
+
+💬️ Git merge
+- git merge main (nos trae los datos del main a login)
+
+💬️ Conflictos en git
+*login
+Que pasa si la rama login hace cambios en "hellogit3.py" -> print ("Hello Git 3 v login!"),
+cosa que no tuvo que hacer.
+
+*main
+"hellogit3.py" -> print ("Hello Git 3 v3!")
+git add .
+git commit -m "Git 3 v3"
+
+*login
+git merge main
+CONFLICT (content): Merge conflict in hellogit3.py
+
+hubo un error porque ambas ramas (main y login) tocaron el mismo fichero, no solo eso tocaron 
+la misma línea de código.
+
+visual studio code - hellogit3.py
+<<<<<<< HEAD
+print ("Hello Git 3 v login!")
+=======
+print ("Hello Git 3 v3!")
+>>>>>>> main
+
+print ("Hello Git 3 v3!")
+
+git add .
+git commit -m "correccion conflicto"
+
+AHORA SI TODO ARREGLADO :)
+ 
+💬️ ============ Git stash ============ 
+*login - login.py
+print ("Login v2") (pero de pronto me llaman los de la rama main, para solucionar un problema)
+git switch main
+
+error: Your local changes to the following files would be overwritten by checkout:
+        login.py
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+- git stash (un guardado temporal de tu código sin el add y el commit)
+- git stash list 
+
+- git stash save "Cambios en el servidor de sockets" (guarda todo, sin especificar cual archivo)
+# Luego sigues trabajando en otra cosa...
+- git stash save "Arreglando el bug del login"
+- git stash push archivo1.cpp (de un archivo especifico)
+
+- git stash push -u -m "Guardando mi nuevo bug.cpp"
+
+	-u (Untracked): Como ya descubriste, esta es la llave maestra. Le dice a Git: "Oye, ese archivo bug.cpp que acabo de crear y que aún no tiene un commit, mételo también en la caja". Sin esto, Git ignoraría tu archivo nuevo.
+
+	-m (Message): Es el indicador de que lo que viene a continuación es el mensaje o comentario. Es igual que en git commit -m. Ayuda a que cuando hagas un git stash list, no veas una lista genérica, sino algo como: stash@{0}: On master: Guardando mi nuevo bug.cpp.
+	
+- git stash push -u -m "agregando lineas de codigo" file.cpp 
+
+git switch main
+*main
+...
+git switch main
+*login
+pero mi stash desaparecio :O
+
+- git stash pop (nos trae el último stash que hicimos borrando todos la lista de stasher)
+
+# Recupera y borra el stash número 1
+- git stash pop stash@{1}
+
+# O si solo quieres aplicarlo sin borrarlo de la lista:
+- git stash apply stash@{1}
+
+- git stash show -p stash@{0} (ver dentro que hay dentro de un stash)
+
+- git stash apply (aplica el ultimo stash)
+
+- git stash drop (borramos el último stash)
+- git stash drop stash@{1}
+
+- git stash clear (borrar todo la lista de stashes)
+
+💬️ Reintegración en git
+- git diff login (comparar dos ramas)
+
+*main
+- git merge login
+
+💬️ Eliminación de ramas en Git
+- git branch -d login (borrar rama)
+
+💬️ Introducción a GitHub
+GitHub es una plataforma que por debajo esta utilizando Git, pero esta en la nube, servidor remoto.
+
+💬️ GitHub: Primeros pasos
+https://docs.github.com/es (documentanción de github)
+
+💬️ Repositorio personal
+si creamos un repositorio con el nombre de usuario que tenemos, ese repositorio sera la "carta de presentación"
+de tu github.
+
+README
+https://markdown.es/
+
+💬️ Remoto y Local
+
+💬️ Autenticación SSH
+https://docs.github.com/es/authentication
+
+- connect with SSH
+- check for existing SSH key
+- entramos a /user/cruz/.ssh (verificamos si tenemos claves ssh)
+- o... ls -al ~/.ssh
+
+- cd /Users/cruz/.ssh
+- ssh-keygen -t ed25519 -C "csalbin86@gmail.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/c/Users/Cruz/.ssh/id_ed25519): id_rsa
+Enter passphrase (empty for no pasphrase): alboncho
+
+- eval "$(ssh-agent -s)" (verificar si el agente-ssh se este ejecutando)
+Agent pid 498
+
+- ssh-add ~/.ssh/id_rsa (te pedira la contraseña)
+
+- luego vamos a perfil de github > configuraciones
+- SSH and GPG keys
+- SSH keys > new SSH key
+- copiamos la clave publica
+- add SSH key
+
+- ssh -T git@github.com (verificar coneccion SSH, talvez sea necesario escribirla dos veces)
+
+=======================
+Si quieres configurarlo en tu Kali/Mint, los pasos son:
+
+    Generar la llave: ssh-keygen -t ed25519 -C "tu@email.com" (esto crea los archivos en ~/.ssh/).
+
+    Copiar la pública: Haces un cat ~/.ssh/id_ed25519.pub.
+
+    Pegar en GitHub: Vas a Settings -> SSH and GPG keys y pegas ese texto.
+=======================
+
+💬️ Repositorio proyecto
+creamos un repositorio nuevo
+
+💬️ Git remote
+- git branch -m 
+- git branch -M 
+
+	-m (minúscula): Es un renombrado seguro. Si intentas renombrar una rama a un nombre que ya existe, Git te detendrá y te dirá: "Oye, ya existe una rama llamada así, no quiero sobrescribirla".
+
+	-M (mayúscula): Es un renombrado forzado. Le dice a Git: "No me importa si ya existe otra rama con ese nombre, bórrala y ponle este nombre a la rama actual". Es el modo "fuerza bruta".
+	
+- git remote add origin https://github.com/NyoEvil/hello-git.git (conectarnos remotamente con github)
+- git push -u origin main (mandar todo el proyecto a github)
+
+    - push: Sube tus commits al servidor.
+
+    -u (set-upstream): Esta es la parte inteligente. Le dice a Git: "Recuerda que, de ahora en adelante, mi rama main local está unida a la rama main del remoto bon".
+
+        ¿El beneficio? La próxima vez que quieras subir código, ya no tendrás que escribir todo el comando; con un simple git push a secas, Git ya sabrá que debe ir a bon main.
+
+    origin: El nombre del remoto que creaste antes.
+    main: La rama que estás subiendo.
+
+💬️ Subida proyecto
+create README.md en github
+
+change commit 
+add commit
+
+"digamos que otro programdor creo el README"
+
+nos vamos a hellogit.js y console.log("Hello Git!") -> console.log("New Hello GitHub!")
+git add .
+git commit -m "Hello GitHub"
+
+en github también podemos ver los commits en "12 commits"
+
+git push
+
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/NyoEvil/hello-git.git'
+hint: Updates were rejected because the remote contains work that you do     
+hint: not have locally. This is usually caused by another repository pushing 
+hint: to the same ref. You may want to first integrate the remote changes    
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details. 
+
+OH NOOO SOCORROOO!!
+
+💬️ Git fetch y pull
+fetch: lo único que hace es descargase el local de historial de cambios,
+       pero sin descargarse los cambios.
+
+pull: se descarga los hitoriales y también los cambios.
+
+- git fetch
+- git pull
+- git pull origin main
+- git config pull.rebase false (tenemos que indicarle la primera vez que estamos intentando traernos
+				cambios de un repositorio remoto, tenemos que indicar cual es el mecanismo
+por defecto para traernos los cambios, os aconsejo el merge)
+- git pull origin main
+- git push
+
+💬️ Git clone
+code: ssh (copiar el link)
+
+- git clone git@github.com:DonutEasy/hello-git.git (ssh o https)
+
+💬️ GitHub Fork
+Me clono el curso de git y github de mouredev, luego modifico el readme, y quiero hacerle un 
+push, pero me dice que no tengo permisos :O
+
+¿Como indicamos a mouredev que queremos hacer cambios a este repositirio?
+- fork (en github, del repositirio de mouredev)
+- le damos nombre
+- y damos en create fork
+
+y ya tenemos un copia del repositirio de Mouredev en nuestro repositirio, aquí podemos hacer 
+lo que se nos pega la regalada gana 
+
+💬️ Flujo colaborativo
+añadimos un archivo hello.md al repositirio clonado(fork), le hacemo un commit, push...
+pero ahora quiero enviarle este cambio al repositorio original.
+
+- Sync fork (en tu usuario de github)
+ 
+y si hay cambios en el repositirio de mouredev este, nos avisara de ello (una especie de merge)
+
+💬️ Pull request
+- Contribute (pull request)
+- create pull request (este le enviara a mouredev el archivo modificado de hello.md)
+- mouredev recibira el pull request, en "pull requert" 
+- luego entrar al pull request 
+- review changes 
+		comment (dejarte un comentario a secas)
+		aprove (aprovar)
+		request changes (esta mal lo que hiciste y cambia luego te acepto)
+- merge pull request (mouredev)
+
+💬️ Ejercicio práctico
+hacerle una pull request al gran mouredev :)
+
+💬️ Conflictos en PR (pull request) 
+issues (he detectado un error)
+
+alboncho	alboncho
+alex		alex
+alvaro 	        lizeth
+		javier
+		juan
+		pablo
+
+que el primer usuario tiene incompleto su hello.md, lo que vamos a hacer es hacer un mix.
+
+alboncho
+alex 
+lizeth
+javier
+juan 
+pablo
+alvaro (solo lo agregamos al final)
+
+- mark resolved 
+- commit change 
+
+💬️ Sincronización fork
+- sync fork (para ponerte al día con el repo principal)
+
+💬️ GitHub Markdown
+https://docs.github.com/es/get-started/writing-on-github
+
+Es importante documentar o dar un toor a tu código, para que otros entiendan de que va 
+tu código.
+
+💬️ Herramientas gráficas GUI
+- GitHub Desktop (https://desktop.github.com)
+- GItKraken (https://gitkraken.com: favorita de mouredev, pero para trabajar privado, tienes que pagar)
+- SourceTree (https://sourcetreeapp.com: tanto repos públicos y privados son gratis)
+- Fork (https://git-fork.com)
+
+💬️ Git & GitHub Flow
+https://gitkraken.com/learn/git/best-practices/git-branch-strategy
+https://atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
+- brew install git-flow (instalar gitflow, mac)
+- apt install git-flow (para linux)
+
+- git bash ya tiene el git flow por defecto
+- git flow
+- git flow init (iniciar gitflow)
+
+Which branch should be used for bringing forth production releases?
+   - main
+Branch name for production releases: [main]
+Branch name for "next release" development: [develop]
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/]
+Bugfix branches? [bugfix/]
+Release branches? [release/]
+Hotfix branches? [hotfix/]
+Support branches? [support/]
+Version tag prefix? []
+Hooks and filters directory? [C:/Udemy/Git/Moure Dev/hello git/.git/hooks]
+
+- git flow feature start 2auth (iniciamos un nuevo feature)
+
+*2auth
+creamos un archivo auth.py
+git add .
+git commit -m "auth"
+
+- git flow feature finish 2auth (finalizamos (eliminamos) esta rama y automaticamente se unira a develop)
+
+- git flow release start 1.0 (creamos un release)
+
+💬️ Git Cherry-Pick y Rebase
+cherry-pick es de irnos a ese commit concreto, y ese commit concreto traerlo a la rama que nosotros querramos
+
+- git cherry-pick 4724c393k (nos trae el commit a la rama en dónde nos encontremos)
+- git cherry-pick --continue (traernos todo de forma controlada)
+- git cherry-pick --abort (abortamos esta misión y todo vuelve a la normalidad)
+
+rebase es para traernos una rama a un punto concreto hasta casi modificar el historial
+de commits.
+
+- git rebase login (un rebase contra la rama que estemos)
+- git rebase -i (para hacerlo paso a paso, interativo)
+- git rebase --	abort
+- git rebase --continue
+
+💬️ GitHub pages y actions
+github pages: https://pages.github.com
+es la posibilidad de que un repositorio pueda actuar como hosting, gratis!!
+
+github actions: https://github.com/features/actions
+el código que nosotros tengamos en github, en realidad también podemos crearle automatizaciones
+para desplegarlo, para hacer tests, es decir es un API a nuestra disposición para ir creando diferentes trabajos
+que nosotros le asociamos a nuestro proyecto de github y que haga lo que tenga que hacer.
+
+Por ejemplo, cada vez que yo haga push el propio github haga los test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
