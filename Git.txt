@@ -334,9 +334,7 @@ pull: se descarga los hitoriales y también los cambios.
 - git fetch
 - git pull
 - git pull origin main
-- git pull --rebase bon main
-
-	Esto hace que tus cambios locales se pongan "encima" de lo que acabas de traer de GitHub, como si siempre hubieras estado actualizado.
+- git pull --rebase bon main (Esto hace que tus cambios locales se pongan "encima" de lo que acabas de traer de GitHub, como si siempre hubieras estado actualizado.)
 	
 - git config pull.rebase false (tenemos que indicarle la primera vez que estamos intentando traernos
 				cambios de un repositorio remoto, tenemos que indicar cual es el mecanismo
@@ -458,19 +456,52 @@ git commit -m "auth"
 - git flow release start 1.0 (creamos un release)
 
 💬️ Git Cherry-Pick y Rebase
-cherry-pick es de irnos a ese commit concreto, y ese commit concreto traerlo a la rama que nosotros querramos
+1. Git Rebase (La Máquina del Tiempo)
 
-- git cherry-pick 4724c393k (nos trae el commit a la rama en dónde nos encontremos)
-- git cherry-pick --continue (traernos todo de forma controlada)
-- git cherry-pick --abort (abortamos esta misión y todo vuelve a la normalidad)
+Imagina que mientras tú trabajabas en tu rama login, alguien más (o tú mismo desde tu otra laptop) subió cambios a main. Tu rama login ahora está "desactualizada".
 
-rebase es para traernos una rama a un punto concreto hasta casi modificar el historial
-de commits.
+- git rebase main: Toma todos tus commits de login, los "despega" momentáneamente, actualiza tu rama con lo nuevo de main y luego vuelve a pegar tus commits encima.
 
-- git rebase login (un rebase contra la rama que estemos)
-- git rebase -i (para hacerlo paso a paso, interativo)
-- git rebase --	abort
-- git rebase --continue
+        Resultado: Un historial limpio y lineal, como si nunca te hubieras quedado atrás.
+
+- git rebase -i (Interactivo): Es el "Modo Dios". Te abre una lista de tus últimos commits y te permite:
+
+        Fusionar dos commits en uno solo (Squash).
+
+        Cambiar el nombre de un mensaje de commit viejo.
+
+        Eliminar un commit que ya no quieres.
+
+        Se usa así: git rebase -i HEAD~3 (para editar los últimos 3 commits).
+
+¿Qué hacer si algo sale mal durante el rebase?
+
+	- git rebase --abort: "¡Pánico! Me equivoqué, vuelve todo a como estaba antes de empezar el rebase".
+
+	- git rebase --continue: "Ya arreglé el conflicto de código, sigue pegando los commits que faltan".
+
+2. Git Cherry-pick (Cosechando Frutas)
+
+Imagina que en una rama de pruebas hiciste 10 commits, pero solo uno de ellos (el que tiene el código de los sockets) es el que realmente sirve y lo quieres en tu rama main.
+
+    - git cherry-pick 34243k: Vas a la otra rama, buscas el ID del commit (el hash como 34243k) y lo "copias y pegas" en tu rama actual.
+
+        ¿Qué se le pasa? El ID o Hash del commit que quieres traer.
+
+Los comandos de control:
+
+    - git cherry-pick --continue: Si hubo un conflicto al traer el commit, lo arreglas y usas esto para terminar de "pegarlo".
+
+    - git cherry-pick --abort: "Mejor no traigas nada, cancela el copiado".
+
+Comando	          ¿Cuándo usarlo?	       Lo que hace
+Rebase	Quieres actualizar tu rama completa. Mueve toda tu rama encima de otra.
+Cherry-pick	Solo quieres UN commit específico.	Copia un cambio puntual de un sitio a otro.
+
+Un consejo: 
+
+El rebase es una herramienta potente pero peligrosa. Regla de oro: Nunca hagas rebase de una rama que ya subiste a GitHub y que otros están usando, porque les cambiarás el historial y causarás un caos. Úsalo solo para limpiar tus ramas locales antes de hacer el push final.
+
 
 💬️ GitHub pages y actions
 github pages: https://pages.github.com
