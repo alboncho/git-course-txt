@@ -541,6 +541,18 @@ Quieres que se vea como uno solo profesional.
     Guardas y cierras.
 
     Resultado: Git fusiona los 3 en uno solo. Ahora puedes ponerle un nombre épico: feat: sistema de sockets terminado.
+    
+    Al lado de cada commit verás una palabra (por defecto es pick). Puedes cambiarla por:fsdfa
+
+    pick: Deja el commit tal cual.
+
+    reword: Úsalo si escribiste mal el mensaje del commit (ej. "commit progrema" -> "commit programa").
+
+    edit: Detiene el rebase para que cambies el código de ese commit.
+
+    squash: (Muy útil) Mezcla ese commit con el anterior. Ideal para unir 10 commits de "arreglo error" en uno solo bien explicado.
+
+    drop: Borra el commit por completo.
 
 2. Git Cherry-pick (El Ladrón de Código)
 
