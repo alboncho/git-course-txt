@@ -334,6 +334,10 @@ pull: se descarga los hitoriales y también los cambios.
 - git fetch
 - git pull
 - git pull origin main
+- git pull --rebase bon main
+
+	Esto hace que tus cambios locales se pongan "encima" de lo que acabas de traer de GitHub, como si siempre hubieras estado actualizado.
+	
 - git config pull.rebase false (tenemos que indicarle la primera vez que estamos intentando traernos
 				cambios de un repositorio remoto, tenemos que indicar cual es el mecanismo
 por defecto para traernos los cambios, os aconsejo el merge)
