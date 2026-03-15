@@ -630,7 +630,48 @@ Esto obligará a la PC-A a preguntarle a GitHub: "¿Oye, cuál es tu rama princi
 - git reset --hard origin/main 
 para que se ve igual que la repo de github
 
+# git push origin main --force vs 'git push origin main --force-with-lease
 
+1. git push --force (El "Dictador")
+
+Este comando le dice al servidor de GitHub: "No me importa lo que tengas guardado, borra tu historia y pon la mía encima".
+
+    Qué hace: Sobrescribe la rama remota con lo que tú tienes localmente, sin preguntar.
+
+    El riesgo: Si alguien más (o tú mismo desde la otra PC) subió un commit mientras tú hacías el rebase, ese commit desaparecerá para siempre. GitHub no te avisará; simplemente lo aniquilará.
+
+2. git push --force-with-lease (El "Auditor")
+
+Este es el comando inteligente. Es como un seguro de vida para tu código.
+
+    Qué hace: Antes de sobrescribir, Git revisa si tu "foto" del servidor (origin/main) coincide con lo que hay realmente en el servidor en ese instante.
+
+    La protección: * Si nadie ha subido nada nuevo, el push funciona.
+
+        Si alguien subió un commit mientras tú trabajabas, Git dirá: "¡Alto! El servidor ha cambiado desde la última vez que miraste. No voy a forzar nada para no borrar trabajo ajeno".
+        
+💬️ El Flujo Completo de limpieza de una rama
+
+Si quieres limpiar todo (tanto el servidor como tus dos laptops), el flujo es este:
+Paso A: Borrar en el servidor (desde cualquier PC)
+Bash
+
+- git push origin --delete socket
+
+(Esto mata la rama en GitHub para todos).
+Paso B: Borrar tu rama local (en la PC donde la creaste)
+Bash
+
+- git branch -d socket
+
+(Si Git no te deja porque no has hecho merge, usa -D para forzar).
+Paso C: Podar en la OTRA laptop (PC-B)
+
+Cuando vayas a tu otra PC, notarás que origin/socket sigue ahí. Para limpiar tu git tree:
+Bash
+
+- git fetch -p
+- git brnach -d socket
 
 
 
