@@ -620,7 +620,10 @@ que nosotros le asociamos a nuestro proyecto de github y que haga lo que tenga q
 
 Por ejemplo, cada vez que yo haga push el propio github haga los test
 
+💬️ otros comandos
 
+- git remote set-head origin --auto
+Esto obligará a la PC-A a preguntarle a GitHub: "¿Oye, cuál es tu rama principal?". GitHub responderá "main", y entonces te aparecerá el origin/HEAD -> origin/main.
 
 
 
