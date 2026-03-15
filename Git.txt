@@ -46,6 +46,26 @@ aparecio el 7 abril de 2005, creado por Linus Torvals el mismo creador del kerne
 - git add hellogit.py (añadirlo al staging area)
 - git commit -m "primer commit" (hacer un snapshot)
 
+# git rm -f (Borrado Total)
+
+La -f viene de force. Úsalo cuando quieres eliminar el archivo por completo: tanto del repositorio (Git) como de tu carpeta física.
+
+    ¿Qué hace?: Borra el archivo de tu PC y lo marca para borrar en el próximo commit.
+
+    Escenario: Creaste un archivo test.cpp que ya no sirve para nada y quieres que muera en todos lados.
+
+    Comando: git rm -f test.cpp
+
+# git rm --cached (Borrado Administrativo)
+
+Este es el comando de Sombrero Rojo para cuando cometiste un error de privacidad.
+
+    ¿Qué hace?: Quita el archivo del control de Git (ya no se subirá a la nube), pero mantiene el archivo intacto en tu PC.
+
+    Escenario: Subiste por error un archivo con tus contraseñas o una configuración de base de datos. Quieres que desaparezca de GitHub, pero lo necesitas en tu computadora para que tu programa de sockets siga funcionando.
+
+    Comando: git rm --cached config.txt
+
 "Cada vez que hacemos un snapshot, a este se le agrega un hash, un identificador único"
 
 💬️ Git log y Status
@@ -305,6 +325,8 @@ creamos un repositorio nuevo
 
     origin: El nombre del remoto que creaste antes.
     main: La rama que estás subiendo.
+
+- git remote rename <nombre_viejo> <nombre_nuevo> (renombrar un remote)
 
 💬️ Subida proyecto
 create README.md en github
@@ -598,17 +620,6 @@ que nosotros le asociamos a nuestro proyecto de github y que haga lo que tenga q
 
 Por ejemplo, cada vez que yo haga push el propio github haga los test
 
-
-
-
-
-<<<<<<< HEAD
-hola desde pc-bon
-=======
-hola desde laptop-bon-ositas
->>>>>>> 7ff962b (refactor: cambie laptop-bon-ositasgit)
-
-jflksjfalsfjñas
 
 
 
