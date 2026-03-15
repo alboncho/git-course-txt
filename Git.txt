@@ -85,6 +85,7 @@ aparecio el 7 abril de 2005, creado por Linus Torvals el mismo creador del kerne
 - git diff --cached (si ya hiciste add .)
 - git diff main login (comparar dos ramas)
 - git diff archivo.cpp (un archivo especifico)
+- git show HEAD (muestra que tiene en ese commit)
 
 Si quieres...				          Comando
 Sacar un solo archivo de Staging	git restore --staged archivo.cpp
