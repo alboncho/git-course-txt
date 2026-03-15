@@ -602,9 +602,7 @@ Por ejemplo, cada vez que yo haga push el propio github haga los test
 
 
 
-hola desde laptop-bon
-
-
+hola desde pc-bon
 
 
 
