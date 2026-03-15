@@ -626,7 +626,9 @@ Por ejemplo, cada vez que yo haga push el propio github haga los test
 - git remote set-head origin --auto
 Esto obligará a la PC-A a preguntarle a GitHub: "¿Oye, cuál es tu rama principal?". GitHub responderá "main", y entonces te aparecerá el origin/HEAD -> origin/main.
 
-
+- git switch main
+- git reset --hard origin/main 
+para que se ve igual que la repo de github
 
 
 
