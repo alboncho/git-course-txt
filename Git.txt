@@ -602,9 +602,13 @@ Por ejemplo, cada vez que yo haga push el propio github haga los test
 
 
 
+<<<<<<< HEAD
 hola desde pc-bon
+=======
+hola desde laptop-bon-ositas
+>>>>>>> 7ff962b (refactor: cambie laptop-bon-ositasgit)
 
-
+jflksjfalsfjñas
 
 
 
