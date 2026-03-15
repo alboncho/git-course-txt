@@ -327,6 +327,7 @@ creamos un repositorio nuevo
     main: La rama que estás subiendo.
 
 - git remote rename <nombre_viejo> <nombre_nuevo> (renombrar un remote)
+- git remote set-url origin git@github.com:alboncho/tmp.git (cambiar URL)
 
 💬️ Subida proyecto
 create README.md en github
